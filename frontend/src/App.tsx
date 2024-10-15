@@ -1,34 +1,59 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect, useState } from 'react'
 import './App.css'
+import { Client } from '@stomp/stompjs';
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [messages, setMessages] = useState<string[]>([]);
+  const [client, setClient] = useState<Client | null>(null);
+
+  useEffect(() => {
+    const stompClient = new Client({
+      brokerURL: 'ws://localhost:8080/gs-guide-websocket',
+      onConnect: () => {
+        console.log('Connected to WebSocket');
+
+        stompClient.subscribe('/topic/greetings', (message) => {
+          if (message.body) {
+            const json = JSON.parse(message.body);
+            const content = json.content;
+            setMessages(prev => [...prev, content])
+          }
+        });
+      },
+      onDisconnect: () => {
+        console.log('Disconnected from WebSocket');
+      },
+      debug: (str) => {
+        console.log(str);
+      }
+    });
+    stompClient.activate();
+    setClient(stompClient);
+  }, []);
+
+  const sendMessage = (message: string) => {
+    if (client && client.connected) {
+      const body = { name: message }
+      client.publish({
+        destination: '/app/hello',
+        body: JSON.stringify(body),
+      })
+    }
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div>
+      <h1>WebSocket STOMP Chat</h1>
+      <ul>
+        {messages.map((message, index) => {
+          return (
+            <li key={index}>{message}</li>
+          )
+        })}
+      </ul>
+      <button onClick={() => sendMessage('Hello WebSocket!')}>Send Message</button>
+    </div>
   )
 }
 
