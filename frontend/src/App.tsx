@@ -9,7 +9,7 @@ function App() {
 
   useEffect(() => {
     const stompClient = new Client({
-      brokerURL: 'ws://localhost:8080/gs-guide-websocket',
+      brokerURL: '/gs-guide-websocket',
       onConnect: () => {
         console.log('Connected to WebSocket');
 
