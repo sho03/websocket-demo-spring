@@ -1,3 +1,5 @@
 spring:
     application:
         name: websocket-demo
+server:
+    port: 8081

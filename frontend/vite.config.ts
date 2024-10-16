@@ -6,8 +6,8 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/gs-guide-websocket': {
-        target: 'ws://localhost:8080',
+      '/ws': {
+        target: 'ws://localhost:8081',
         ws: true,
         secure: false,
       },

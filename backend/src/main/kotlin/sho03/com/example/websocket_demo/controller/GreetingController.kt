@@ -2,12 +2,12 @@ package sho03.com.example.websocket_demo.controller
 
 import org.springframework.messaging.handler.annotation.MessageMapping
 import org.springframework.messaging.handler.annotation.SendTo
-import org.springframework.stereotype.Controller
+import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.util.HtmlUtils
 import sho03.com.example.websocket_demo.data.Greeting
 import sho03.com.example.websocket_demo.data.HelloMessage
 
-@Controller
+@RestController
 class GreetingController() {
 
     // /helloにメッセージが送信された場合、greeting()を呼び出す

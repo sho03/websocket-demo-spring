@@ -23,6 +23,6 @@ class WebSocketConfig : WebSocketMessageBrokerConfigurer {
     // WebSocket接続用のエンドポイントを登録
     override fun registerStompEndpoints(registry: StompEndpointRegistry) {
         registry
-            .addEndpoint("/gs-guide-websocket")
+            .addEndpoint("/ws")
     }
 }
