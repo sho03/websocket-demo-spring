@@ -14,18 +14,26 @@ function App() {
   const { startConnect, sendMessage } = useWebSocket(onSubscribe);
 
   return (
-    <div>
-      <h1>WebSocket STOMP Chat</h1>
-      <ul>
-        {messages.map((message, index) => {
-          return (
-            <li key={index}>{message}</li>
-          )
-        })}
-      </ul>
-      <button onClick={startConnect}>connect</button>
-      <input type="text" value={text} onChange={(e) => setText(e.target.value)} />
-      <button onClick={() => sendMessage(text)}>Send Message</button>
+    <div className={"container"}>
+      <div>
+        <ul>
+          {messages.map((message, index) => {
+            return (
+              <li key={index}>{message}</li>
+            )
+          })}
+        </ul>
+        <button onClick={startConnect}>connect</button>
+      </div>
+      <div className={"text_container"}>
+        <input
+          type="text"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          className={"text"}
+        />
+        <button onClick={() => sendMessage(text)} className={"button"}>Send Message</button>
+      </div>
     </div>
   )
 }
