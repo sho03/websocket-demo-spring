@@ -1,12 +1,12 @@
 import { Client } from '@stomp/stompjs';
-import { useState } from 'react';
+import { useRef } from 'react';
 
 export function useWebSocket(onSubscribe: (value: string) => void) {
 
-  const [client, setClient] = useState<Client | null>(null);
+  const clientRef = useRef<Client | null>(null);
 
   const startConnect = () => {
-    if (client !== null) {
+    if (clientRef.current !== null) {
       return;
     }
     const stompClient = new Client({
@@ -28,13 +28,13 @@ export function useWebSocket(onSubscribe: (value: string) => void) {
       }
     });
     stompClient.activate();
-    setClient(stompClient);
+    clientRef.current = stompClient;
   }
 
   const sendMessage = (value: string) => {
-    if (client && client.connected) {
+    if (clientRef.current && clientRef.current.connected) {
       const body = { content : value }
-      client.publish({
+      clientRef.current.publish({
         destination: '/app/messages',
         body: JSON.stringify(body),
       })

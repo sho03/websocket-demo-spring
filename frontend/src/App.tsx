@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import { useWebSocket } from './hooks/useWebSocket';
 
@@ -13,6 +13,10 @@ function App() {
 
   const { startConnect, sendMessage } = useWebSocket(onSubscribe);
 
+  useEffect(() => {
+    startConnect();
+  }, [])
+
   return (
     <div className={"container"}>
       <div>
@@ -23,7 +27,6 @@ function App() {
             )
           })}
         </ul>
-        <button onClick={startConnect}>connect</button>
       </div>
       <div className={"text_container"}>
         <input
