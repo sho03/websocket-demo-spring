@@ -18,6 +18,18 @@ function App() {
     startConnect();
   }, [])
 
+  const sendMessageWrapper = () => {
+    sendMessage(text);
+    setText('');
+  }
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (event.key === "Enter" && event.shiftKey) {
+      event.preventDefault();
+      sendMessageWrapper();
+    }
+  }
+
   return (
     <div className={"container"}>
       <div>
@@ -33,9 +45,10 @@ function App() {
         <textarea
           value={text}
           onChange={(e) => setText(e.target.value)}
+          onKeyDown={handleKeyDown}
           className={"text"}
         />
-        <button onClick={() => sendMessage(text)} className={"button"}>Send Message</button>
+        <button onClick={() => sendMessageWrapper()} className={"button"}>Send Message</button>
       </div>
     </div>
   )
