@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import { useWebSocket } from './hooks/useWebSocket';
+import { Message } from './components/Message';
 
 function App() {
 
@@ -23,7 +24,7 @@ function App() {
         <ul>
           {messages.map((message, index) => {
             return (
-              <li key={index}>{message}</li>
+              <Message value={message} key={index}/>
             )
           })}
         </ul>

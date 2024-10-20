@@ -1,0 +1,9 @@
+.message_container {
+  padding: 18px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  margin-bottom: 8px;
+  list-style: none;
+  text-align: left;
+}
+
