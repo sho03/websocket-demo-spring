@@ -9,6 +9,10 @@
   display: grid;
   height: 100%;
   grid-template-rows: 8fr 2fr;
+
+  ul {
+    padding: 0;
+  }
 }
 
 .text_container {
