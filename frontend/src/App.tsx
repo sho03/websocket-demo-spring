@@ -1,46 +1,17 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import './App.css'
-import { Client } from '@stomp/stompjs';
+import { useWebSocket } from './hooks/useWebSocket';
 
 function App() {
 
   const [messages, setMessages] = useState<string[]>([]);
-  const [client, setClient] = useState<Client | null>(null);
+  const [text, setText] = useState('');
 
-  useEffect(() => {
-    const stompClient = new Client({
-      brokerURL: '/ws',
-      onConnect: () => {
-        console.log('Connected to WebSocket');
+  const onSubscribe = (message: string) => {
+    setMessages(prev => [...prev, message]);
+  }
 
-        stompClient.subscribe('/topic/greetings', (message) => {
-          if (message.body) {
-            const json = JSON.parse(message.body);
-            const content = json.content;
-            setMessages(prev => [...prev, content])
-          }
-        });
-      },
-      onDisconnect: () => {
-        console.log('Disconnected from WebSocket');
-      },
-      debug: (str) => {
-        console.log(str);
-      }
-    });
-    stompClient.activate();
-    setClient(stompClient);
-  }, []);
-
-  const sendMessage = (message: string) => {
-    if (client && client.connected) {
-      const body = { name: message }
-      client.publish({
-        destination: '/app/hello',
-        body: JSON.stringify(body),
-      })
-    }
-  };
+  const { startConnect, sendMessage } = useWebSocket(onSubscribe);
 
   return (
     <div>
@@ -52,7 +23,9 @@ function App() {
           )
         })}
       </ul>
-      <button onClick={() => sendMessage('Hello WebSocket!')}>Send Message</button>
+      <button onClick={startConnect}>connect</button>
+      <input type="text" value={text} onChange={(e) => setText(e.target.value)} />
+      <button onClick={() => sendMessage(text)}>Send Message</button>
     </div>
   )
 }

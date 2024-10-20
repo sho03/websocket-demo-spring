@@ -12,12 +12,12 @@ class GreetingController() {
 
     // /helloにメッセージが送信された場合、greeting()を呼び出す
     // メッセージのペイロードはHelloMessageにバインドされる
-    @MessageMapping("/hello")
+    @MessageMapping("/messages")
     // /topic/greetingsをサブスクライブしているクライアントにブロードキャストされる
-    @SendTo("/topic/greetings")
-    fun greeting(message: HelloMessage): Greeting {
-        // simulated delay
-        Thread.sleep(1000)
-        return Greeting("Hello ${HtmlUtils.htmlEscape(message.name)}")
+    @SendTo("/topic/messages")
+    fun greeting(message: Message): Message{
+        return message
     }
+
+    data class Message(val content: String)
 }
