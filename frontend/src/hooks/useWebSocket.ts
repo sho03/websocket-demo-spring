@@ -6,6 +6,9 @@ export function useWebSocket(onSubscribe: (value: string) => void) {
   const [client, setClient] = useState<Client | null>(null);
 
   const startConnect = () => {
+    if (client !== null) {
+      return;
+    }
     const stompClient = new Client({
       brokerURL: '/ws',
       onConnect: () => {
