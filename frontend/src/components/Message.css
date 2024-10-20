@@ -5,5 +5,7 @@
   margin-bottom: 8px;
   list-style: none;
   text-align: left;
+  white-space: pre-wrap;
+  line-height: 1.5;
 }
 

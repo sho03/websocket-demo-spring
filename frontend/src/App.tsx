@@ -30,8 +30,7 @@ function App() {
         </ul>
       </div>
       <div className={"text_container"}>
-        <input
-          type="text"
+        <textarea
           value={text}
           onChange={(e) => setText(e.target.value)}
           className={"text"}
