@@ -8,5 +8,16 @@
   white-space: pre-wrap;
   line-height: 1.5;
   background-color: white;
+  max-width: 70%;
+}
+
+.message_text {
+  padding-right: 20px;
+}
+
+.message_time {
+  text-align: right;
+  color: #a9a9a9;
+  font-size: 0.8rem;
 }
 
