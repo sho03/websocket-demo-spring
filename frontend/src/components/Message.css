@@ -1,8 +1,8 @@
 .message {
-  padding: 18px;
+  padding: 12px 18px 10px;
   border: 1px solid #ccc;
   border-radius: 12px;
-  margin-bottom: 8px;
+  margin-bottom: 16px;
   list-style: none;
   text-align: left;
   white-space: pre-wrap;
@@ -17,7 +17,18 @@
 
 .message_time {
   text-align: right;
-  color: #a9a9a9;
+  color: #696969;
   font-size: 0.8rem;
+  margin-top: 8px;
+}
+
+.self {
+  margin-left: auto;
+  background-color: #add8e6;
+}
+
+.other {
+  margin-right: auto;
+  background-color: #e0ffff;
 }
 

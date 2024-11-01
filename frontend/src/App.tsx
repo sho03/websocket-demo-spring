@@ -35,7 +35,7 @@ function App() {
       <ul className={"message_container"}>
         {messages.map((message, index) => {
           return (
-            <Message value={message} key={index}/>
+            <Message value={message} key={index} />
           )
         })}
       </ul>
