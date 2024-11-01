@@ -32,15 +32,13 @@ function App() {
 
   return (
     <div className={"container"}>
-      <div>
-        <ul>
-          {messages.map((message, index) => {
-            return (
-              <Message value={message} key={index}/>
-            )
-          })}
-        </ul>
-      </div>
+      <ul className={"message_container"}>
+        {messages.map((message, index) => {
+          return (
+            <Message value={message} key={index}/>
+          )
+        })}
+      </ul>
       <div className={"text_container"}>
         <textarea
           value={text}
@@ -48,7 +46,11 @@ function App() {
           onKeyDown={handleKeyDown}
           className={"text"}
         />
-        <button onClick={() => sendMessageWrapper()} className={"button"}>Send Message</button>
+        <div className={"button_area"}>
+          <button onClick={() => sendMessageWrapper()} className={"button"}>
+            Send Message
+          </button>
+        </div>
       </div>
     </div>
   )
